@@ -6,7 +6,7 @@ module.exports = function webpackConfig(config, webpack) {
     })
   );
 
-  config.externals = [
+   config.externals = [
     {
       lie: 'window.Promise',
       react: 'window.React',

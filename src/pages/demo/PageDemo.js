@@ -6,6 +6,28 @@ import Info from 'components/info';
 import logic from './logic';
 import './PageDemo.less';
 
+import { Scroller } from 'saltui';
+
+class TestScrller extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    handleScrollEnd(scroller) {
+        const { x, y } = scroller;
+        console.log({ x, y });
+    }
+
+    render() {
+        // return (
+        // );
+    }
+}
+
+
+
 class Demo extends React.Component {
     handleClick(evt) {
         console.log(this, evt.target); // eslint-disable-line
@@ -28,7 +50,7 @@ class Demo extends React.Component {
                 <div className="demo-section">
                     <h2 className="section-title">标准按钮</h2>
                     <div className="section-content">
-                        <Button type="primary" onClick={this.handleClick}>一级按钮</Button>
+                        <Button type="primary" mouseWheel onClick={this.handleClick}>一级按钮</Button>
                         <br />
                         <Button type="secondary" onClick={this.handleClick}>二级按钮</Button>
                         <br />
@@ -51,14 +73,25 @@ export default class Page extends Component {
 
   constructor(props) {
     super(props, logic);
+    // this.iScroller="";
   }
+
+
 
   componentDidMount() {
     this.handleClick('1234');
   }
 
+    handleScrollEnd(scroller) {
+        const { x, y } = scroller;
+        console.log({ x, y });
+    }
   handleClick(workNo) {
     this.dispatch('fetch', { workNo });
+  }
+
+  scroller(){
+      this.refs.iScroller.scroller.scrollTo(0, -200);
   }
 
   render() {
@@ -67,7 +100,67 @@ export default class Page extends Component {
     const Tag = list && list.length ? List : Info;
 
     return (
+
       <div className="page-demo">
+          {/*<Scroller className="page"  ref={(iScroller)=>{this.iScroller = iScroller}} onScrollEnd={this.handleScrollEnd.bind(this)} style={{zIndex:101}}>*/}
+          <Scroller className="page"  ref="iScroller" onScrollEnd={this.handleScrollEnd.bind(this)} style={{zIndex:101}}>
+              {/*  */}
+              <Group.Head className="t-FS12 t-LH2 t-PT16">
+              列表标题1
+          </Group.Head>
+              <Group.List >
+                  <div className="t-FBH">
+                      {/* 横向滚动 DEMO*/}
+                      <Scroller className="t-FB1" scrollX scrollY={false}>
+                          <div className="t-LH44 nowrap">
+                              我可以横向滚动
+                              我可以横向滚动
+                              我可以横向滚动
+                              我可以横向滚动
+                              我可以横向滚动
+                              我可以横向滚动
+                              我可以横向滚动
+                              我可以横向滚动
+                              我可以横向滚动
+                              我可以横向滚动
+                              我可以横向滚动
+                              我可以横向滚动
+                              我可以横向滚动
+                              我可以横向滚动
+                              我可以横向滚动
+                              我可以横向滚动
+                          </div>
+                      </Scroller>
+                  </div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+              </Group.List>
+              <Group.Head className="tFS12 t-LH2 tPT16">列表标题2</Group.Head>
+              <Group.List>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+                  <div className="t-LH44 t-PL10">aa</div>
+              </Group.List>
+          </Scroller>
         <Group>
           <Group.Head>DEMO</Group.Head>
           <Group.List lineIndent={15} itemIndent={15}>
@@ -78,8 +171,11 @@ export default class Page extends Component {
             />
           </Group.List>
         </Group>
-      <Demo/>
+          <Demo/>
+          <Button className={'page'} style={{zIndex:102}} onClick={this.scroller.bind(this)} >滚动</Button>
       </div>
+
+
     );
   }
 }

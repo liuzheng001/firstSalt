@@ -1,8 +1,67 @@
 import { Component } from 'react';
 
-import { Toast, Button, Dialog,Popup,Popover ,Avatar} from 'saltui';
+import { Toast, Button, Dialog,Popup,Popover ,Avatar,Badge,Gallery,Slot} from 'saltui';
 
 import './PageHome.less';
+
+class TestSolt extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            // 数据模型
+            data: [
+                [
+                    { text: 'Jan', value: 0 }, { text: 'Feb', value: 1 },
+                    { text: 'Mar', value: 2 }, { text: 'Apr', value: 3 },
+                    { text: 'May', value: 4 }, { text: 'Jun', value: 5 },
+                    { text: 'Jul', value: 6 }, { text: 'Aug', value: 7 },
+                    { text: 'Sep', value: 8 }, { text: 'Oct', value: 9 },
+                    { text: 'Nov', value: 10 }, { text: 'Dec', value: 11 }
+                ],
+                [
+                    { text: '1', value: 0 }, { text: '2', value: 1 },
+                    { text: '3', value: 2 }, { text: '4', value: 3 },
+                ]
+            ],
+            // 选中的值
+            value: [ { text: 'Aug', value: 7 },{text:'1',value:'0'} ],
+            // 上次选中的值（取消选择时恢复用）
+            confirmedValue: [ { text: 'Aug', value: 7 } ,{text:'1',value:'0'}]
+        };
+    }
+    showSlot() {
+        this.refs.slot.show();
+    }
+    handleConfirm(value) {
+        // 确认选中项目
+        this.setState({
+            confirmedValue: value,
+            value: value
+        });
+    }
+    handleChange(value, column, index) {
+        // 选中项目改变
+        this.setState({
+            value: value
+        });
+    }
+    handleCancel() {
+        // 取消之前的操作，恢复上次确认的值
+        this.setState({
+            value: this.state.confirmedValue
+        });
+    }
+    render() {
+        var t = this;
+        return (
+            <div>
+                <Button size="large" onClick={t.showSlot.bind(t)}>show slot</Button>
+                <label htmlFor="">{this.state.value[0].text+this.state.value[1].text}<br/>{this.state.confirmedValue[0].text+this.state.confirmedValue[1].text}</label>
+                <Slot ref="slot" data={t.state.data} value={t.state.value} title="title" onConfirm={t.handleConfirm.bind(t)} onChange={t.handleChange.bind(t)} onCancel={t.handleCancel.bind(t)}/>
+            </div>
+        );
+    }
+}
 
 class TestDialog extends React.Component{
 
@@ -124,13 +183,16 @@ class TestPopup extends React.Component {
 
 const avatarColors = ['#78C06E', '#3BC2B5', '#78919D', '#5EC9F6', '#F6BF26'];
 
+const showToast = (options) => {
+    Toast.show(options);
+};
 
+var count = 1;
 export default class PageHome extends Component {
 
 
     constructor(props) {
         super(props);
-
         this.state = {
             showAlert: true,
             showConfirm: false,
@@ -139,6 +201,27 @@ export default class PageHome extends Component {
             showTransBg: false,
             showNoPadding: false,
             text: '测试文本',
+            images: [
+                {
+                    src: 'https://gw.alicdn.com/tps/TB1HMQVJpXXXXbZXpXXXXXXXXXX-640-340.jpg',
+                    name: '信息平台前端团队',
+                    // href: 'http://www.alibaba-inc.com',
+                },
+                {
+                    src: 'https://gw.alicdn.com/tps/TB1X.oFJpXXXXbMXVXXXXXXXXXX-484-282.png',
+                    name: '信息平台前端团队',
+                    // href: 'http://www.alibaba-inc.com',
+                },
+                {
+                    src: 'https://gw.alicdn.com/tps/TB1E2M9JpXXXXXQXXXXXXXXXXXX-820-356.png',
+                    name: '信息平台前端团队',
+                    // href: 'http://www.alibaba-inc.com',
+                },
+                {
+                    src: 'https://gw.alicdn.com/tps/TB1Qy3RJpXXXXcxXFXXXXXXXXXX-2000-680.jpg',
+                    name: '信息平台前端团队 突破十大障碍最终登上人生巅峰',
+                    // href: 'http://www.alibaba-inc.com',
+                }],
         };
     }
 
@@ -193,6 +276,12 @@ export default class PageHome extends Component {
     return (
 
       <div className="page-home">
+          <TestSolt/>
+          <Gallery
+              onGalleryClick={(index, image) => alert(index, image)}
+              images={this.state.images}
+              showNav
+          />
 
           <div>
 
@@ -210,7 +299,12 @@ export default class PageHome extends Component {
 
             </div>
             <div className="t-PL10 t-PR10 t-PT10">
-              <Button type="secondary" onClick={t.handlePush.bind(t)}>Pop new window</Button>
+                <Button type="secondary"  onClick={t.handlePush.bind(t)}>Pop new window</Button>
+               <div>
+                <Badge text={100} overflowCount={99}>
+                    <a href="#1"  style={{backgroundColor:"red",display:"block",                        width: "300px", height: "100px"}} >badge</a>
+                </Badge>
+               </div>
             </div>
             <div className="t-PL10 t-PR10 t-PT10">
               <Button type="secondary" onClick={t.handleLink}>Demo</Button>
@@ -223,7 +317,17 @@ export default class PageHome extends Component {
             </div>
               <div>
                   <TestPopup/>
+                  <Button
+                     type="danger" className="demo" onClick={() => {
+                         count++;
+                      Toast.show({
+                          type: 'error',
+                          content: count,
+                      })
+                  }}
+                  >error</Button>
               </div>
+
           <div className="t-FBH">
                     {/*<Avatar name="tingle" colors={avatarColors} /> */}
                     <Avatar name="天晟" colors={avatarColors} />
