@@ -37,7 +37,7 @@ context.create('SomeModuleAPI', {
     willFetch() {
       Toast.show({
         type: 'loading',
-        content: 'Loading',
+        content: '打开',
       });
     },
   },

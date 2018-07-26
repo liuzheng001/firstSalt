@@ -103,14 +103,14 @@ export default class Page extends Component {
 
       <div className="page-demo">
           {/*<Scroller className="page"  ref={(iScroller)=>{this.iScroller = iScroller}} onScrollEnd={this.handleScrollEnd.bind(this)} style={{zIndex:101}}>*/}
-          <Scroller className="page"  ref="iScroller" onScrollEnd={this.handleScrollEnd.bind(this)} style={{zIndex:101}}>
-              {/*  */}
+          {/*<Scroller className="page"  ref="iScroller" onScrollEnd={this.handleScrollEnd.bind(this)} style={{zIndex:101}}>
+
               <Group.Head className="t-FS12 t-LH2 t-PT16">
               列表标题1
           </Group.Head>
               <Group.List >
                   <div className="t-FBH">
-                      {/* 横向滚动 DEMO*/}
+                       横向滚动 DEMO
                       <Scroller className="t-FB1" scrollX scrollY={false}>
                           <div className="t-LH44 nowrap">
                               我可以横向滚动
@@ -160,7 +160,7 @@ export default class Page extends Component {
                   <div className="t-LH44 t-PL10">aa</div>
                   <div className="t-LH44 t-PL10">aa</div>
               </Group.List>
-          </Scroller>
+          </Scroller>*/}
         <Group>
           <Group.Head>DEMO</Group.Head>
           <Group.List lineIndent={15} itemIndent={15}>
@@ -172,7 +172,7 @@ export default class Page extends Component {
           </Group.List>
         </Group>
           <Demo/>
-          <Button className={'page'} style={{zIndex:102}} onClick={this.scroller.bind(this)} >滚动</Button>
+         {/* <Button className={'page'} style={{zIndex:102}} onClick={this.scroller.bind(this)} >滚动</Button>*/}
       </div>
 
 

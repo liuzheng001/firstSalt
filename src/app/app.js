@@ -8,6 +8,7 @@ import { Toast, Dialog } from 'saltui';
 import { isDev } from 'variables';
 import PageHome from 'pages/home';
 import PageDemo from 'pages/demo';
+import PageDing from 'pages/ding';
 import DB from 'db';
 import './app.less';
 
@@ -56,6 +57,7 @@ render(
       <IndexRoute component={PageHome} />
       <Route path="home" component={PageHome} />
       <Route path="demo" component={PageDemo} />
+      <Route path="ding" component={PageDing} />
     </Route>
   </Router>,
   document.getElementById('App'),
