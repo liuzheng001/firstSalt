@@ -1,5 +1,6 @@
 import { Component } from 'refast';
 import { DDReady } from '../../app/ding';
+import { Button} from 'saltui';
 
 import logic from './logic';
 import './PageDing.less';
@@ -29,6 +30,7 @@ export default class Page extends Component {
     return (
       <div className="page-demo">
         <h1>hello dingTalk!</h1>
+        <Button>打开钉钉</Button>
       </div>
     );
   }
